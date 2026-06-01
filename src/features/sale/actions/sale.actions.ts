@@ -110,7 +110,7 @@ export async function addSalePaymentAction(
     const caller = await verifyAuthOrAdmin(false);
     const parsed = addPaymentSchema.safeParse({ saleId, type, amount });
     if (!parsed.success) {
-      return { success: false, error: parsed.error.errors[0]?.message || 'Datos de pago inválidos' };
+      return { success: false, error: parsed.error.issues[0]?.message || 'Datos de pago inválidos' };
     }
 
     return await db.transaction(async (tx) => {
