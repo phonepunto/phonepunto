@@ -152,6 +152,55 @@ export class SaleRepository {
     // Final delete of the locked sale record
     await dbtx.delete(sales).where(eq(sales.id, id));
   }
+
+  async addPayment(saleId: string, type: 'efectivo' | 'transferencia', amount: number, dbtx: any = db) {
+    // 1. Lock the sale to prevent race conditions (double payment)
+    const lockedSale = await dbtx
+      .select({ id: sales.id, total: sales.total })
+      .from(sales)
+      .where(eq(sales.id, saleId))
+      .for('update');
+    
+    if (lockedSale.length === 0) {
+      throw new Error('Venta no encontrada.');
+    }
+
+    const sale = lockedSale[0];
+    const saleTotal = parseFloat(sale.total);
+
+    // 2. Calculate already paid amount
+    const payments = await dbtx
+      .select({ amount: salePayments.amount })
+      .from(salePayments)
+      .where(eq(salePayments.saleId, saleId));
+
+    const totalPaid = payments.reduce((sum: number, p: any) => sum + parseFloat(p.amount), 0);
+    const pendingBalance = saleTotal - totalPaid;
+
+    // 3. Validate amount
+    const roundedPending = Math.round(pendingBalance * 100) / 100;
+    const roundedAmount = Math.round(amount * 100) / 100;
+
+    if (roundedAmount <= 0) {
+      throw new Error('El monto de pago debe ser mayor a 0.');
+    }
+    
+    if (roundedAmount > roundedPending) {
+      throw new Error(`El pago excede el saldo pendiente ($${pendingBalance.toFixed(2).replace('.', ',')}).`);
+    }
+
+    // 4. Insert the payment
+    const [insertedPayment] = await dbtx
+      .insert(salePayments)
+      .values({
+        saleId,
+        type,
+        amount: amount.toString(),
+      })
+      .returning();
+
+    return insertedPayment;
+  }
 }
 
 export const saleRepository = new SaleRepository();
