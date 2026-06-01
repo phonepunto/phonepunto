@@ -94,3 +94,49 @@ export async function deleteSaleAction(id: string): Promise<ActionResult> {
     return { success: false, error: handleDatabaseError(error, 'Venta') };
   }
 }
+
+const addPaymentSchema = z.object({
+  saleId: z.string().uuid('ID de venta inválido'),
+  type: z.enum(['efectivo', 'transferencia']),
+  amount: z.number().positive('El monto debe ser mayor a cero'),
+});
+
+export async function addSalePaymentAction(
+  saleId: string,
+  type: 'efectivo' | 'transferencia',
+  amount: number
+): Promise<ActionResult> {
+  try {
+    const caller = await verifyAuthOrAdmin(false);
+    const parsed = addPaymentSchema.safeParse({ saleId, type, amount });
+    if (!parsed.success) {
+      return { success: false, error: parsed.error.errors[0]?.message || 'Datos de pago inválidos' };
+    }
+
+    return await db.transaction(async (tx) => {
+      const result = await saleRepository.addPayment({
+        saleId: parsed.data.saleId,
+        type: parsed.data.type,
+        amount: parsed.data.amount,
+        dbtx: tx,
+      });
+
+      await recordAuditLog(
+        caller.id,
+        'CREAR',
+        'SALE_PAYMENT',
+        result.id,
+        {
+          saleId: parsed.data.saleId,
+          type: parsed.data.type,
+          amount: String(parsed.data.amount),
+        },
+        tx
+      );
+
+      return { success: true, message: 'Pago registrado con éxito' };
+    });
+  } catch (error: any) {
+    return { success: false, error: handleDatabaseError(error, 'Pago') };
+  }
+}

@@ -25,6 +25,7 @@ interface SalesListViewProps {
   onNewSale: () => void;
   onPrintRow: (s: SaleDef) => void;
   onDeleteRow: (id: string) => void;
+  onManagePayments: (s: SaleDef) => void;
   globalMessage: React.ReactNode;
 }
 
@@ -41,10 +42,10 @@ function filterSales(sales: SaleDef[], searchTerm: string, startDate: string, en
   });
 }
 
-export function SalesListView({ sales, isPending, searchTerm, setSearchTerm, startDate, setStartDate, endDate, setEndDate, onSync, onNewSale, onPrintRow, onDeleteRow, globalMessage }: SalesListViewProps) {
+export function SalesListView({ sales, isPending, searchTerm, setSearchTerm, startDate, setStartDate, endDate, setEndDate, onSync, onNewSale, onPrintRow, onDeleteRow, onManagePayments, globalMessage }: SalesListViewProps) {
   const role = useAuthStore((s) => s.user?.role);
   const filteredSales = filterSales(sales, searchTerm, startDate, endDate);
-  const columns = getSalesColumns({ role, onPrint: onPrintRow, onDelete: onDeleteRow });
+  const columns = getSalesColumns({ role, onPrint: onPrintRow, onDelete: onDeleteRow, onManagePayments });
 
   return (
     <div className='flex flex-col flex-1 h-full overflow-hidden animate-in fade-in duration-300'>
@@ -83,7 +84,7 @@ export function SalesListView({ sales, isPending, searchTerm, setSearchTerm, sta
         data={filteredSales}
         isLoading={isPending}
         emptyMessage='No hay operaciones que coincidan con los filtros.'
-        renderCard={renderSaleCard({ role, onPrint: onPrintRow, onDelete: onDeleteRow })}
+        renderCard={renderSaleCard({ role, onPrint: onPrintRow, onDelete: onDeleteRow, onManagePayments })}
       />
     </div>
   );

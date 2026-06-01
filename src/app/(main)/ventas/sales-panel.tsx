@@ -14,6 +14,7 @@ import { useSalesActions } from '@/features/sale/ui/hooks/useSalesActions';
 import { SalePaymentModal } from '@/features/sale/ui/components/sale-payment-modal';
 import { SaleDiscountModal } from '@/features/sale/ui/components/sale-discount-modal';
 import { ConfirmModal } from '@/components/ui/responsive-modal';
+import { SalePaymentsHistoryModal } from '@/features/sale/ui/components/sale-payments-history-modal';
 import { useSaleStore } from '@/features/sale/store/sale.store';
 import { useProductStore } from '@/features/product/store/product.store';
 import { useCustomerStore } from '@/features/customer/store/customer.store';
@@ -50,14 +51,11 @@ export function SalesPanel() {
     loadInitial();
   }, [salesLoaded, prodsLoaded, custLoaded, setSales, setProducts, setCustomers]);
 
-  const displaySales = sales;
-  const displayProducts = products;
-  const displayCustomers = customers;
-
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
   const [selectedSaleForPrint, setSelectedSaleForPrint] = useState<SaleDef | null>(null);
+  const [selectedSaleIdForPayments, setSelectedSaleIdForPayments] = useState<string | null>(null);
   const [showMobileCart, setShowMobileCart] = useState(false);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
   const [isDiscountModalOpen, setIsDiscountModalOpen] = useState(false);
@@ -66,14 +64,14 @@ export function SalesPanel() {
   const [selectedCustomerId, setSelectedCustomerId] = useState<string>('');
 
   useEffect(() => {
-    if (view === 'new' && !selectedCustomerId && displayCustomers.length > 0) {
-      const activeCustomers = displayCustomers.filter((c) => c.isActive);
+    if (view === 'new' && !selectedCustomerId && customers.length > 0) {
+      const activeCustomers = customers.filter((c) => c.isActive);
       if (activeCustomers.length > 0) {
         const defaultCust = activeCustomers.find((c) => c.name.toLowerCase() === 'mostrador') || activeCustomers[0];
         setSelectedCustomerId(defaultCust.id);
       }
     }
-  }, [view, displayCustomers, selectedCustomerId]);
+  }, [view, customers, selectedCustomerId]);
 
   const cartProps = useCart();
 
@@ -113,8 +111,8 @@ export function SalesPanel() {
     return (
       <>
         <SalesPOSView
-          products={displayProducts}
-          customers={displayCustomers}
+          products={products}
+          customers={customers}
           setCustomers={setCustomers}
           {...cartProps}
           selectedCustomerId={selectedCustomerId}
@@ -164,7 +162,7 @@ export function SalesPanel() {
         tabIndex={-1}
       >
         <SalesListView
-          sales={displaySales}
+          sales={sales}
           isPending={isPending}
           onSync={() => loadData(true)}
           searchTerm={searchTerm}
@@ -182,6 +180,7 @@ export function SalesPanel() {
             setView('print');
           }}
           onDeleteRow={setItemToDelete}
+          onManagePayments={(sale) => setSelectedSaleIdForPayments(sale.id!)}
           globalMessage={<GlobalMessage message={globalMessage} />}
         />
       </div>
@@ -194,6 +193,13 @@ export function SalesPanel() {
         description='¿Deseas anular esta venta? El stock de los productos asociados será repuesto automáticamente. Esta acción no se puede deshacer.'
         submitLabel='Confirmar Anulación'
         isPending={isPending}
+      />
+
+      <SalePaymentsHistoryModal
+        isOpen={!!selectedSaleIdForPayments}
+        onClose={() => setSelectedSaleIdForPayments(null)}
+        sale={sales.find((s) => s.id === selectedSaleIdForPayments) || null}
+        onRefresh={() => loadData(false)}
       />
     </>
   );

@@ -39,7 +39,7 @@ export function useSalesActions({ onSuccessMessage, onErrorMessage, setSales, se
   };
 
   const handleCreateSale = async (selectedCustomerId: string, cart: any[], cartTotal: number, payments: any[], discounts: { amount: number; percentage: number }) => {
-    if (cart.length === 0 || !selectedCustomerId || payments.length === 0) return;
+    if (cart.length === 0 || !selectedCustomerId) return;
 
     startTransition(async () => {
       const result = await createSaleAction({

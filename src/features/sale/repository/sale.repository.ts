@@ -123,6 +123,50 @@ export class SaleRepository {
     return sale;
   }
 
+  async addPayment(config: {
+    saleId: string;
+    type: 'efectivo' | 'transferencia';
+    amount: number;
+    dbtx?: any;
+  }) {
+    const { saleId, type, amount, dbtx = db } = config;
+
+    const lockedSale = await dbtx
+      .select({ id: sales.id, total: sales.total })
+      .from(sales)
+      .where(eq(sales.id, saleId))
+      .for('update');
+
+    if (lockedSale.length === 0) {
+      throw new Error('Venta no encontrada');
+    }
+
+    const saleTotal = parseFloat(lockedSale[0].total);
+
+    const payments = await dbtx
+      .select({ amount: salePayments.amount })
+      .from(salePayments)
+      .where(eq(salePayments.saleId, saleId));
+
+    const totalPaid = payments.reduce((acc: number, p: any) => acc + parseFloat(p.amount), 0);
+    const remaining = Math.max(0, parseFloat((saleTotal - totalPaid).toFixed(2)));
+
+    if (parseFloat(amount.toFixed(2)) > remaining) {
+      throw new Error(`El pago excede el saldo pendiente. Pendiente: $${remaining}`);
+    }
+
+    const [inserted] = await dbtx
+      .insert(salePayments)
+      .values({
+        saleId,
+        type,
+        amount: amount.toString(),
+      })
+      .returning();
+
+    return inserted;
+  }
+
   async deleteSale(id: string, dbtx: any = db) {
     // 1. Lock the sale to prevent double-deletion and race conditions
     // Using FOR UPDATE ensures no other transaction can delete or modify this sale concurrently.

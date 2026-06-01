@@ -97,8 +97,8 @@ export function SalePaymentModal({ isOpen, onClose, total, onConfirm, isPending 
   };
 
   const handleConfirm = () => {
-    if (Math.abs(total - currentCovered) > 0.001) {
-      setError('El total de los pagos debe coincidir exactamente con el total de la venta');
+    if (currentCovered > total + 0.001) {
+      setError('El total de los pagos no puede exceder el total de la venta');
       return;
     }
     onConfirm(payments);
