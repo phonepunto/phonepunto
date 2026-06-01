@@ -1,0 +1,124 @@
+[1mdiff --git a/package-lock.json b/package-lock.json[m
+[1mindex b4f6d07..9583c4e 100644[m
+[1m--- a/package-lock.json[m
+[1m+++ b/package-lock.json[m
+[36m@@ -9,7 +9,7 @@[m
+       "version": "0.1.0",[m
+       "dependencies": {[m
+         "@hookform/resolvers": "^5.2.2",[m
+[31m-        "@supabase/supabase-js": "^2.100.0",[m
+[32m+[m[32m        "@supabase/supabase-js": "^2.106.2",[m
+         "bcrypt": "^6.0.0",[m
+         "cloudinary": "^2.10.0",[m
+         "dotenv": "^17.3.1",[m
+[36m@@ -2214,9 +2214,9 @@[m
+       "license": "MIT"[m
+     },[m
+     "node_modules/@supabase/auth-js": {[m
+[31m-      "version": "2.105.4",[m
+[31m-      "resolved": "https://registry.npmjs.org/@supabase/auth-js/-/auth-js-2.105.4.tgz",[m
+[31m-      "integrity": "sha512-Ejfa37M5xoIwoxVebxRahnwubPo8g22qkXQ4p50+N9MIvU9UZoN+A8dwVPtczzGf8oV/YXN80ZPxK4aWXuSN/A==",[m
+[32m+[m[32m      "version": "2.106.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/@supabase/auth-js/-/auth-js-2.106.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-VcAjUErkHkhC5Jaf+g/G1qbkQrFh8edaCdHa7pxJmHUjkWKjT7UnYCtPA89XV0N0GIYRkEqJZw5V62CtOxTmBQ==",[m
+       "license": "MIT",[m
+       "dependencies": {[m
+         "tslib": "2.8.1"[m
+[36m@@ -2226,9 +2226,9 @@[m
+       }[m
+     },[m
+     "node_modules/@supabase/functions-js": {[m
+[31m-      "version": "2.105.4",[m
+[31m-      "resolved": "https://registry.npmjs.org/@supabase/functions-js/-/functions-js-2.105.4.tgz",[m
+[31m-      "integrity": "sha512-JVNKbBft3Qkja+WlGaE026AJ2AH9K0UTsxsfvEIHgd4zFrBor4BYRCrYFrv9IDsvVqkF72wKDsODJl5GY/C4tA==",[m
+[32m+[m[32m      "version": "2.106.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/@supabase/functions-js/-/functions-js-2.106.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-oRnr0QrL8H+zTO1YyQ1QjiHZU/957jvubbxSJTUm2XLAgzoGGV9Tahfyd+uvLsBLRVmXLtpU3oyCjdQIvkGMOA==",[m
+       "license": "MIT",[m
+       "dependencies": {[m
+         "tslib": "2.8.1"[m
+[36m@@ -2244,9 +2244,9 @@[m
+       "license": "MIT"[m
+     },[m
+     "node_modules/@supabase/postgrest-js": {[m
+[31m-      "version": "2.105.4",[m
+[31m-      "resolved": "https://registry.npmjs.org/@supabase/postgrest-js/-/postgrest-js-2.105.4.tgz",[m
+[31m-      "integrity": "sha512-SppIyLo/kTwIlz1qpv2HN1EQqBg0GVktrDDFsXygYROha3MgVn4rT7p5EjFHFqXQm2rdRGb/BI7bc+jr10m91w==",[m
+[32m+[m[32m      "version": "2.106.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/@supabase/postgrest-js/-/postgrest-js-2.106.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-tDOzyPgp9pIRMR2x6C9+uDSJrnXSzxLtt3d7nC+Lrsy3jnJDHYfdQC/xcRyhJE/TOBJ0heSqRKR3UmejDjZxsw==",[m
+       "license": "MIT",[m
+       "dependencies": {[m
+         "tslib": "2.8.1"[m
+[36m@@ -2256,9 +2256,9 @@[m
+       }[m
+     },[m
+     "node_modules/@supabase/realtime-js": {[m
+[31m-      "version": "2.105.4",[m
+[31m-      "resolved": "https://registry.npmjs.org/@supabase/realtime-js/-/realtime-js-2.105.4.tgz",[m
+[31m-      "integrity": "sha512-6ov6c59+8D9h7q4M4Gy/uDJlC0Akxl9/714Y+6vJ+Sijuc16TS/p5DwhfRCLNcIhNiej1gEt+CQUwsjiPt4PxQ==",[m
+[32m+[m[32m      "version": "2.106.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/@supabase/realtime-js/-/realtime-js-2.106.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-LdRGT7DNhyZkPjubUv5bSdAZ0jSEX8wTHvx7htj7+K59TOZRvz4TuQK7tL2RWxyIZVeFMRluL04SzWS61rKnUA==",[m
+       "license": "MIT",[m
+       "dependencies": {[m
+         "@supabase/phoenix": "^0.4.2",[m
+[36m@@ -2269,9 +2269,9 @@[m
+       }[m
+     },[m
+     "node_modules/@supabase/storage-js": {[m
+[31m-      "version": "2.105.4",[m
+[31m-      "resolved": "https://registry.npmjs.org/@supabase/storage-js/-/storage-js-2.105.4.tgz",[m
+[31m-      "integrity": "sha512-Jx+pzMP1Whjof2PWHoVBUA75/p7PQE9CqKBzn1oXVyJDOggMLSH2OzVWwsXYaxEpdC1K/KltwmOX44nL3LHl9g==",[m
+[32m+[m[32m      "version": "2.106.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/@supabase/storage-js/-/storage-js-2.106.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-xgKCSYuev1YarV+iVqr+zlfgSyremnJtn8T0NCT8L4XmMv1CLtESc0Q6kNp8+mKWdX/8ND0nzm7OMKx08kwNAw==",[m
+       "license": "MIT",[m
+       "dependencies": {[m
+         "iceberg-js": "^0.8.1",[m
+[36m@@ -2282,16 +2282,16 @@[m
+       }[m
+     },[m
+     "node_modules/@supabase/supabase-js": {[m
+[31m-      "version": "2.105.4",[m
+[31m-      "resolved": "https://registry.npmjs.org/@supabase/supabase-js/-/supabase-js-2.105.4.tgz",[m
+[31m-      "integrity": "sha512-cEnx+k49knU+qdIP7rXwR6fqEXPHZs+74xFK1R0S8MgQ7v9tbePVdGxvO03n3bPympMdJWVLadARBfU4TgNHCQ==",[m
+[32m+[m[32m      "version": "2.106.2",[m
+[32m+[m[32m      "resolved": "https://registry.npmjs.org/@supabase/supabase-js/-/supabase-js-2.106.2.tgz",[m
+[32m+[m[32m      "integrity": "sha512-2/RZ/1fmJx/MRSEDG2Xk8+J4JVk5clM9V0uSI6kUTrcS32KA89DtqI5RUOC9r6mzY3WBC9qexLjssIHjbLyVJA==",[m
+       "license": "MIT",[m
+       "dependencies": {[m
+[31m-        "@supabase/auth-js": "2.105.4",[m
+[31m-        "@supabase/functions-js": "2.105.4",[m
+[31m-        "@supabase/postgrest-js": "2.105.4",[m
+[31m-        "@supabase/realtime-js": "2.105.4",[m
+[31m-        "@supabase/storage-js": "2.105.4"[m
+[32m+[m[32m        "@supabase/auth-js": "2.106.2",[m
+[32m+[m[32m        "@supabase/functions-js": "2.106.2",[m
+[32m+[m[32m        "@supabase/postgrest-js": "2.106.2",[m
+[32m+[m[32m        "@supabase/realtime-js": "2.106.2",[m
+[32m+[m[32m        "@supabase/storage-js": "2.106.2"[m
+       },[m
+       "engines": {[m
+         "node": ">=20.0.0"[m
+[36m@@ -5192,7 +5192,6 @@[m
+       "version": "2.3.2",[m
+       "resolved": "https://registry.npmjs.org/fsevents/-/fsevents-2.3.2.tgz",[m
+       "integrity": "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==",[m
+[31m-      "dev": true,[m
+       "hasInstallScript": true,[m
+       "license": "MIT",[m
+       "optional": true,[m
+[1mdiff --git a/package.json b/package.json[m
+[1mindex 15a546f..7a6b102 100644[m
+[1m--- a/package.json[m
+[1m+++ b/package.json[m
+[36m@@ -19,7 +19,7 @@[m
+   },[m
+   "dependencies": {[m
+     "@hookform/resolvers": "^5.2.2",[m
+[31m-    "@supabase/supabase-js": "^2.100.0",[m
+[32m+[m[32m    "@supabase/supabase-js": "^2.106.2",[m
+     "bcrypt": "^6.0.0",[m
+     "cloudinary": "^2.10.0",[m
+     "dotenv": "^17.3.1",[m
