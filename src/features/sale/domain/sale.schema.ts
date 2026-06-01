@@ -64,9 +64,8 @@ export const saleCreateSchema = createInsertSchema(sales)
     items: z.array(saleItemInputSchema).min(1, 'La venta debe tener al menos un producto'),
     payments: z
       .array(salePaymentInputSchema)
-      .max(2, 'Solo se permiten hasta dos métodos de pago')
-      .optional()
-      .default([]),
+      .min(1, 'Debe especificar al menos un método de pago')
+      .max(2, 'Solo se permiten hasta dos métodos de pago'),
   });
 
 export type SaleInput = z.infer<typeof saleCreateSchema>;
@@ -104,7 +103,6 @@ export const saleRowSchema = createSelectSchema(sales).extend({
         id: z.string(),
         type: z.string(),
         amount: z.preprocess((val) => parseFloat(val as string), z.number()),
-        createdAt: z.union([z.date(), z.string()]),
       })
     )
     .optional(),
