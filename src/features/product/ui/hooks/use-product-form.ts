@@ -71,18 +71,18 @@ export function useProductForm({
 
   const handlePurchasePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value.replace(/\./g, '');
-    setValue('purchasePrice', val, { shouldDirty: true, shouldValidate: true });
+    setValue('purchasePrice', val as any, { shouldDirty: true, shouldValidate: true });
     const cost = parseFormattedNumber(val);
     const markupVal = parseFloat(markupPercentage.replace(',', '.'));
     if (cost > 0 && !isNaN(markupVal)) {
-      setValue('salePrice', formatNumberForForm(cost * (1 + markupVal / 100)), { shouldDirty: true, shouldValidate: true });
+      setValue('salePrice', formatNumberForForm(cost * (1 + markupVal / 100)) as any, { shouldDirty: true, shouldValidate: true });
     }
   };
 
   const handleSalePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value.replace(/\./g, '');
-    setValue('salePrice', val, { shouldDirty: true, shouldValidate: true });
-    const cost = parseFormattedNumber(watch('purchasePrice') || '0');
+    setValue('salePrice', val as any, { shouldDirty: true, shouldValidate: true });
+    const cost = parseFormattedNumber((watch('purchasePrice') as any) || '0');
     const sale = parseFormattedNumber(val);
     if (cost > 0) {
       setMarkupPercentage(formatNumberForForm(((sale - cost) / cost) * 100));
@@ -92,10 +92,10 @@ export function useProductForm({
   const handleMarkupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value.replace(/\./g, '');
     setMarkupPercentage(val);
-    const cost = parseFormattedNumber(watch('purchasePrice') || '0');
+    const cost = parseFormattedNumber((watch('purchasePrice') as any) || '0');
     const markupVal = parseFloat(val.replace(',', '.'));
     if (cost > 0 && !isNaN(markupVal)) {
-      setValue('salePrice', formatNumberForForm(cost * (1 + markupVal / 100)), { shouldDirty: true, shouldValidate: true });
+      setValue('salePrice', formatNumberForForm(cost * (1 + markupVal / 100)) as any, { shouldDirty: true, shouldValidate: true });
     }
   };
 
